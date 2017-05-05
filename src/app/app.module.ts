@@ -13,6 +13,7 @@ import {RouterModule} from "@angular/router";
 import {AuthGuard} from "./auth.service";
 import { RoomsComponent } from './rooms/rooms.component';
 import {UserService} from "./shared/user.service";
+import { ChatComponent } from './chat/chat.component';
 
 // Must export the config
 export const firebaseConfig = {
@@ -28,7 +29,8 @@ export const firebaseConfig = {
   declarations: [
     AppComponent,
     LoginComponent,
-    RoomsComponent
+    RoomsComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

@@ -26,14 +26,16 @@ export class RoomsComponent implements OnInit {
         this.roomsArr = [];
         snapshots.forEach(snapshot => {
           snapshot.users.forEach(user => {
-            if(user.uid !== this.user.uid){
+            if (user.uid !== this.user.uid) {
               snapshot.show = true;
             }
           });
           console.log(snapshot)
           this.roomsArr.push(snapshot);
         });
-      })
+      });
+    // let messages = this.db.list('/rooms/default/messages');
+    // messages.push({text: "dsfsdf"})
   }
 
 }

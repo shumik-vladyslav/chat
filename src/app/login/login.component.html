@@ -1,8 +1,12 @@
-<div> {{ (user | async)?.uid }} </div>
-<div> {{ (user | async)?.displayName }} </div>
-<div> {{ (user | async)?.email }} </div>
+<div class="popup">
+  <div class="info">
+    <div> {{ (user | async)?.uid }} </div>
+    <div class="userName"> {{ (user | async)?.displayName }} </div>
+    <div> {{ (user | async)?.email }} </div>
+  </div>
 
-<button (click)="login()">Login</button>
-<button (click)="logout()">Logout</button>
-<button routerLink="/login-email" id="email">Email</button>
-<a routerLink="/signup" class="alc">Don't have an account?</a>
+  <button class="btn btn-default btn-block" (click)="login()">Login Google</button>
+  <button class="btn btn-default btn-block" routerLink="/login-email" id="email">Login Email</button>
+  <button class="btn btn-default btn-block" (click)="logout()">Logout</button>
+  <a routerLink="/signup" class="alc">Don't have an account?</a>
+</div>

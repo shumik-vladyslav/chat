@@ -60,13 +60,18 @@ export class LoginComponent implements OnInit {
   }
 
   createNewUser(data) {
-    let user2 = new User2(data);
-    this.users.push(user2);
+    this.users.push({
+      uid: data.uid,
+      displayName: data.displayName,
+      email: data.email,
+    });
+
+    console.log("Пользователя создали");
 
     let room;
     this.rooms.subscribe(snapshots => {
         snapshots.forEach(snapshot => {
-        if (snapshot.name === "Default") {
+        if (snapshot.name === "default") {
           room = snapshot;
         }
       });
@@ -76,7 +81,13 @@ export class LoginComponent implements OnInit {
       if (!room.users) {
         room.users = [];
       }
-      room.users.push(user2);
+      room.users.push({
+        uid: data.uid,
+        displayName: data.displayName,
+        email: data.email,
+      });
+      console.log("в руме лежит");
+      console.log(room);
       this.rooms.update('default', room);
     }, 5000);
   }

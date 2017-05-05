@@ -1,0 +1,10 @@
+<ul>
+  <li *ngFor="let room of rooms | async">
+    {{ room | json }}
+  </li>
+
+  --------
+  <li *ngFor="let room of roomsArr">
+    {{ room | json }}
+  </li>
+</ul>

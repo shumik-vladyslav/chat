@@ -5,6 +5,14 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { LoginComponent } from './login/login.component';
+import {rootRouterConfig} from "./app.routes";
+import {RouterModule} from "@angular/router";
+import {AuthGuard} from "./auth.service";
+import { RoomsComponent } from './rooms/rooms.component';
+import {UserService} from "./shared/user.service";
 
 // Must export the config
 export const firebaseConfig = {
@@ -18,15 +26,20 @@ export const firebaseConfig = {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    RoomsComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+    RouterModule.forRoot(rootRouterConfig, { useHash: true }),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule,
+    AngularFireDatabaseModule
   ],
-  providers: [],
+  providers: [UserService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

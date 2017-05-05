@@ -18,8 +18,7 @@ export class UserService {
 
     this.userAf.subscribe(data => {
       this.user = data;
-      console.log(this.user)
-      if(this.user && this.user.uid)
+      if(this.user && this.user.email)
       Cookie.set("User", JSON.stringify({
         uid: this.user.uid,
         displayName: this.user.displayName,

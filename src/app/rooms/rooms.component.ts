@@ -15,6 +15,8 @@ export class RoomsComponent implements OnInit {
 
   roomsArr;
 
+  newRoom = "";
+
   constructor(private db: AngularFireDatabase, private router: Router, private userService: UserService) {
     this.rooms = db.list('/rooms');
   }
@@ -25,17 +27,43 @@ export class RoomsComponent implements OnInit {
       .subscribe(snapshots => {
         this.roomsArr = [];
         snapshots.forEach(snapshot => {
+          console.log(snapshot.users)
+          if(!snapshot.users.forEach){
+            snapshot.users = this.objToArrys(snapshot.users);
+          }
           snapshot.users.forEach(user => {
-            if (user.uid !== this.user.uid) {
+            if (user.email === this.user.email) {
               snapshot.show = true;
             }
           });
-          console.log(snapshot)
           this.roomsArr.push(snapshot);
         });
       });
-    // let messages = this.db.list('/rooms/default/messages');
-    // messages.push({text: "dsfsdf"})
+  }
+
+  objToArrys(obj){
+    let res = [];
+    for(let key in obj){
+      res[key] = obj[key];
+    }
+    return res;
+  }
+
+  createRoom(){
+    this.rooms.update(this.newRoom, {
+      name: this.newRoom,
+      users: [{
+        uid: this.user.uid,
+        displayName: this.user.displayName,
+        email: this.user.email,
+      }]
+    });
+
+    this.newRoom = "";
+  }
+
+  selectRoom(room) {
+    this.router.navigate(['/chat', room.name]);
   }
 
 }

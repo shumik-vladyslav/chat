@@ -1,3 +1,53 @@
-<p>
-  chat works!
-</p>
+<div class="container">
+  <div class="row" >
+    <div class="col-md-2">
+      <app-rooms></app-rooms>
+    </div>
+<div class="col-md-10">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      CHAT {{this.id}}
+    </div>
+    <div class="panel-heading">
+      Invite to room:
+      <input [(ngModel)]="nameInvite">
+      <button class="btn-primary" (click)="inviteTo()" style="padding: 4px;">Invite</button>
+    </div>
+    <div class="panel-body">
+      <ul class="media-list">
+
+        <li  *ngFor="let mess of messages | async" class="media">
+
+          <div class="media-body">
+
+            <div class="media">
+              <a class="pull-left" href="#">
+                <!--<img class="media-object img-circle " src="assets/img/user.png">-->
+              </a>
+              <div class="media-body">
+                {{ mess.text }}
+                <br>
+                <small class="text-muted">                {{mess.author}}| {{mess.time | date: 'medium'}}</small>
+                <hr>
+              </div>
+            </div>
+
+          </div>
+        </li>
+
+      </ul>
+    </div>
+    <div class="panel-footer">
+      <div class="input-group"  class="row">
+        <div class="col-md-10">
+          <input  [(ngModel)]="mess" type="text" class="form-control" placeholder="Enter Message">
+        </div>
+        <span  class="col-md-2" class="input-group-btn">
+          <button (click)="sendMessage()" class="btn btn-info" type="button">SEND</button>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+</div>

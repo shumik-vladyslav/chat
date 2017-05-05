@@ -1,10 +1,11 @@
-<ul>
-  <li *ngFor="let room of rooms | async">
-    {{ room | json }}
-  </li>
 
-  --------
-  <li *ngFor="let room of roomsArr">
-    {{ room | json }}
+<ul class="list-group">
+  <li class="list-group-item">
+    New room:
+    <input [(ngModel)]="newRoom" style="width: 80px; ">
+    <button class="btn-primary" (click)="createRoom()" style="padding: 4px;">Create</button>
+  </li>
+  <li *ngFor="let room of roomsArr" (click)="selectRoom(room)" [hidden]="!room.show" class="list-group-item">
+    {{ room.name }}
   </li>
 </ul>

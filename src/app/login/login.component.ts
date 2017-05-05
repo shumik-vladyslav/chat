@@ -6,6 +6,8 @@ import {AngularFireDatabase} from 'angularfire2/database';
 import {Router} from "@angular/router";
 import { Cookie } from 'ng2-cookies';
 
+import {User2} from "../shared/user.model";
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -58,11 +60,8 @@ export class LoginComponent implements OnInit {
   }
 
   createNewUser(data) {
-    this.users.push({
-      uid: data.uid,
-      displayName: data.displayName,
-      email: data.email,
-    });
+    let user2 = new User2(data);
+    this.users.push(user2);
 
     let room;
     this.rooms.subscribe(snapshots => {
@@ -77,11 +76,7 @@ export class LoginComponent implements OnInit {
       if (!room.users) {
         room.users = [];
       }
-      room.users.push({
-        uid: data.uid,
-        displayName: data.displayName,
-        email: data.email,
-      });
+      room.users.push(user2);
       this.rooms.update('default', room);
     }, 5000);
   }

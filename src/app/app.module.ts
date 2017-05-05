@@ -15,14 +15,17 @@ import { RoomsComponent } from './rooms/rooms.component';
 import {UserService} from "./shared/user.service";
 import { ChatComponent } from './chat/chat.component';
 
+import {SignupComponent} from "./signup/signup.component";
+import { EmailComponent } from "./email/email.component";
+
 // Must export the config
 export const firebaseConfig = {
-  apiKey: "AIzaSyBXui6E9WHeIkYe-41Wm1sUFQksGUm-roI",
-  authDomain: "chat-828b8.firebaseapp.com",
-  databaseURL: "https://chat-828b8.firebaseio.com",
-  projectId: "chat-828b8",
-  storageBucket: "chat-828b8.appspot.com",
-  messagingSenderId: "663248235118"
+  apiKey: "AIzaSyBubXkz2lF1u7f3a8WfVdEBF6hSJwlNO0M",
+  authDomain: "my-chat-1f078.firebaseapp.com",
+  databaseURL: "https://my-chat-1f078.firebaseio.com",
+  projectId: "my-chat-1f078",
+  storageBucket: "my-chat-1f078.appspot.com",
+  messagingSenderId: "690995893085"
 };
 
 @NgModule({
@@ -30,7 +33,9 @@ export const firebaseConfig = {
     AppComponent,
     LoginComponent,
     RoomsComponent,
-    ChatComponent
+    ChatComponent,
+    SignupComponent,
+    EmailComponent
   ],
   imports: [
     BrowserModule,

@@ -14,10 +14,18 @@ export class ChatComponent implements OnInit {
 
   rooms;
 
-  roomsArr;
+  messages;
+
+  mess = "";
+
+  users;
+
+  id = "";
 
   constructor(public route: ActivatedRoute, private db: AngularFireDatabase, private router: Router, private userService: UserService) {
     this.rooms = db.list('/rooms');
+    this.users = db.list('/users');
+
   }
 
   ngOnInit() {
@@ -28,20 +36,49 @@ export class ChatComponent implements OnInit {
         this.user = this.userService.getUser();
         this.rooms
           .subscribe(snapshots => {
-            this.roomsArr = [];
+            let auth = false;
+            this.id = params["id"];
             snapshots.forEach(snapshot => {
-              // snapshot.users.forEach(user => {
-              //   if (user.uid !== this.user.uid) {
-              //
-              //   }
-              // });
+              if (snapshot.name === params['id']) {
+                if(!snapshot.users.forEach){
+                  snapshot.users = this.objToArrys(snapshot.users);
+                }
+                snapshot.users.forEach(user => {
+                  if (user.email === this.user.email) {
+                    auth = true;
+                    this.messages = this.db.list('/rooms/' + params['id'] + "/messages");
+                  }
+                });
+              };
             });
-            console.log(snapshots)
+            if (!auth)
+              this.router.navigate([ '/rooms' ]);
 
           });
-        // let messages = this.db.list('/rooms/default/messages');
-        // messages.push({text: "dsfsdf"})
       });
+  }
+
+  sendMessage(){
+    this.messages.push({text: this.mess, author: this.user.displayName, time: new Date().toString()});
+
+    this.mess = "";
+  }
+
+  nameInvite = "";
+
+  inviteTo(){
+    let users = this.db.list('/rooms/' + this.id+ "/users")
+      .update("5",{email: this.nameInvite, displayName: "23", uid: "23"});
+
+    this.nameInvite = "";
+  }
+
+  objToArrys(obj){
+    let res = [];
+    for(let key in obj){
+      res[key] = obj[key];
+    }
+    return res;
   }
 
 }

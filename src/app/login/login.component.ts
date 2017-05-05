@@ -29,18 +29,18 @@ export class LoginComponent implements OnInit {
   login() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
     this.user.subscribe(data => {
-      if (data && data.uid) {
+      if (data && data.email) {
         this.users.subscribe(snapshots => {
           let flag;
 
           if (!snapshots.length) {
             this.rooms.update('default', {
-              name: "Default",
+              name: "default",
               users: []
             });
           }
           snapshots.forEach(snapshot => {
-            if (snapshot.uid === data.uid){
+            if (snapshot.email === data.email){
               flag = true;
             }
           });
